@@ -41,39 +41,64 @@
     }
   ],
   "family": {
-    "sisters": [
+    "lineage": [
       {
-        "name": "Sister Name 1",
-        "birth_year": "199X",
-        "bio": "Introduction about first sister...",
-        "husband": { "name": "Husband Name", "birth_year": "199X" },
-        "children": [
-          { "name": "Child 1", "birth_year": "201X" }
+        "gen": 1,
+        "title": "Generation 01",
+        "label": "Ancestral Roots",
+        "units": [
+          {
+            "id": "root_parents",
+            "relationship": "Lineage Source",
+            "primary": { "name": "Father Name", "birth_year": "19XX" },
+            "partner": { "name": "Mother Name", "birth_year": "19XX" },
+            "bio": "Foundational generation of the Kabir Rabi lineage.",
+            "descendants_ids": ["self", "sister1", "sister2", "sister3"]
+          }
         ]
       },
       {
-        "name": "Sister Name 2",
-        "birth_year": "199X",
-        "bio": "Introduction about second sister...",
-        "husband": { "name": "Husband Name", "birth_year": "199X" },
-        "children": []
-      },
-      {
-        "name": "Sister Name 3",
-        "birth_year": "199X",
-        "bio": "Introduction about third sister...",
-        "husband": { "name": "Husband Name", "birth_year": "199X" },
-        "children": []
+        "gen": 2,
+        "title": "Generation 02",
+        "label": "The Pillars",
+        "units": [
+          {
+            "id": "self",
+            "relationship": "Self / Lead",
+            "primary": { "name": "Faisal Kabir Rabi", "birth_year": "199X" },
+            "partner": { "name": "Wife Name", "birth_year": "199X", "bio": "Sanjida Sultana Mary" },
+            "descendants": [
+              { "name": "Girl ", "birth_year": "2021", "bio": "FAIJA FAISAL" },
+              { "name": "Boy", "birth_year": "2024", "bio": "MURTASIM FAISAL" },
+              { "name": "Child 3", "birth_year": "20XX", "bio": "Bio..." }
+            ]
+          },
+          {
+            "id": "sister1",
+            "relationship": "Sister",
+            "primary": { "name": "Sister Name 1", "birth_year": "199X", "bio": "Introduction about first sister..." },
+            "partner": { "name": "Husband Name", "birth_year": "199X" },
+            "descendants": [
+              { "name": "Child 1", "birth_year": "201X" }
+            ]
+          },
+          {
+            "id": "sister2",
+            "relationship": "Sister",
+            "primary": { "name": "Sister Name 2", "birth_year": "199X", "bio": "Introduction about second sister..." },
+            "partner": { "name": "Husband Name", "birth_year": "199X" },
+            "descendants": []
+          },
+          {
+            "id": "sister3",
+            "relationship": "Sister",
+            "primary": { "name": "Sister Name 3", "birth_year": "199X", "bio": "Introduction about third sister..." },
+            "partner": { "name": "Husband Name", "birth_year": "199X" },
+            "descendants": []
+          }
+        ]
       }
-    ],
-    "immediate": {
-      "wife": { "name": "Wife Name", "birth_year": "199X", "bio": "Introduction about wife..." },
-      "children": [
-        { "name": "Child 1", "birth_year": "20XX", "bio": "Bio..." },
-        { "name": "Child 2", "birth_year": "20XX", "bio": "Bio..." },
-        { "name": "Child 3", "birth_year": "20XX", "bio": "Bio..." }
-      ]
-    }
+    ]
   },
   "updates": [
     {

@@ -937,262 +937,157 @@ export default function App() {
             </div>
           </FadeIn>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-            {/* Sisters Pillar */}
-            <div className="space-y-12">
-              <FadeIn>
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="p-2 bg-orange-500/10 rounded-full">
-                    <Users className="text-orange-500" size={20} />
+          {/* Lineage Map */}
+          <div className="space-y-24">
+            {content.family?.lineage?.map((gen: any, gIdx: number) => (
+              <div key={gIdx} className="space-y-12">
+                <FadeIn>
+                  <div className="flex items-center gap-6">
+                    <div className="text-4xl font-black text-orange-500/20">{gen.gen.toString().padStart(2, '0')}</div>
+                    <div>
+                      <h3 className="text-2xl font-black uppercase tracking-tighter">{gen.title}</h3>
+                      <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">{gen.label}</p>
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-black uppercase tracking-tighter">The Sisters</h3>
-                </div>
-              </FadeIn>
+                </FadeIn>
 
-              <div className="grid grid-cols-1 gap-12">
-                {content.family?.sisters?.map((sister: any, idx: number) => (
-                  <FadeIn key={idx} delay={idx * 0.1}>
-                    <div className="group relative">
-                      {/* Sister Card */}
-                      <div className="border-l-2 border-neutral-200 dark:border-white/10 pl-6 group-hover:border-orange-500 transition-colors">
-                        <div className="flex justify-between items-baseline mb-2">
-                          {isAdminMode ? (
-                            <input 
-                              value={sister.name} 
-                              onChange={(e) => {
-                                const newSisters = [...(content.family?.sisters || [])];
-                                newSisters[idx].name = e.target.value;
-                                updateContent('family.sisters', newSisters);
-                              }}
-                              className="text-2xl font-bold font-serif italic text-neutral-900 dark:text-white bg-orange-500/10 w-full"
-                            />
-                          ) : (
-                            <h4 className="text-2xl font-bold font-serif italic text-neutral-900 dark:text-white group-hover:text-orange-500 transition-colors">{sister.name}</h4>
-                          )}
-                          <div className="flex items-center gap-2">
-                            <span className="text-[9px] font-black uppercase tracking-widest text-neutral-400">Class:</span>
-                            {isAdminMode ? (
-                              <input 
-                                value={sister.birth_year} 
-                                onChange={(e) => {
-                                  const newSisters = [...(content.family?.sisters || [])];
-                                  newSisters[idx].birth_year = e.target.value;
-                                  updateContent('family.sisters', newSisters);
-                                }}
-                                className="text-[10px] font-bold text-orange-500 bg-orange-500/10 w-12"
-                              />
-                            ) : (
-                              <span className="text-[10px] font-bold text-orange-500">{sister.birth_year}</span>
-                            )}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+                  {gen.units.map((unit: any, uIdx: number) => (
+                    <FadeIn key={unit.id} delay={uIdx * 0.1}>
+                      <div className={`p-8 border ${unit.id === 'self' ? 'bg-neutral-900 border-orange-500' : 'bg-white dark:bg-white/5 border-neutral-200 dark:border-white/10'} shadow-sm relative overflow-hidden group/unit`}>
+                        {unit.id === 'self' && (
+                          <div className="absolute top-0 right-0 p-8 opacity-10">
+                            <Heart size={80} className="text-white" />
                           </div>
-                        </div>
-
-                        {isAdminMode ? (
-                          <textarea 
-                            value={sister.bio}
-                            onChange={(e) => {
-                              const newSisters = [...(content.family?.sisters || [])];
-                              newSisters[idx].bio = e.target.value;
-                              updateContent('family.sisters', newSisters);
-                            }}
-                            className="text-sm text-neutral-500 dark:text-white/50 font-sans mt-2 bg-orange-500/10 w-full"
-                            rows={2}
-                          />
-                        ) : (
-                          <p className="text-sm text-neutral-500 dark:text-white/50 font-sans mt-2 leading-relaxed">{sister.bio}</p>
                         )}
+                        
+                        <div className="relative z-10">
+                          <div className="flex justify-between items-start mb-6">
+                            <span className={`text-[9px] font-black uppercase tracking-super ${unit.id === 'self' ? 'text-orange-500' : 'text-neutral-400'} block`}>
+                              {unit.relationship}
+                            </span>
+                          </div>
 
-                        {/* Relatives */}
-                        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div className="p-3 bg-white dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded">
-                            <div className="text-[8px] font-black uppercase tracking-super text-neutral-400 mb-1">Companion</div>
-                            <div className="flex justify-between items-center">
+                          <div className="flex flex-col gap-4 mb-8">
+                            <div className="flex items-baseline gap-4">
                               {isAdminMode ? (
                                 <input 
-                                  value={sister.husband.name} 
+                                  value={unit.primary.name} 
                                   onChange={(e) => {
-                                    const newSisters = [...(content.family?.sisters || [])];
-                                    newSisters[idx].husband.name = e.target.value;
-                                    updateContent('family.sisters', newSisters);
+                                    const newLineage = [...content.family.lineage];
+                                    newLineage[gIdx].units[uIdx].primary.name = e.target.value;
+                                    updateContent('family.lineage', newLineage);
                                   }}
-                                  className="text-[11px] font-bold text-neutral-800 dark:text-white/80 bg-orange-500/10"
+                                  className={`text-3xl font-black uppercase tracking-tighter ${unit.id === 'self' ? 'text-white' : 'text-neutral-900 dark:text-white'} bg-orange-500/10 w-full`}
                                 />
                               ) : (
-                                <span className="text-[11px] font-bold text-neutral-800 dark:text-white/80">{sister.husband.name}</span>
+                                <h4 className={`text-3xl font-black uppercase tracking-tighter ${unit.id === 'self' ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>{unit.primary.name}</h4>
                               )}
-                              <span className="text-[9px] font-mono text-neutral-400">'{sister.husband?.birth_year?.slice(-2)}</span>
+                              <span className={`text-[10px] font-mono ${unit.id === 'self' ? 'text-white/40' : 'text-neutral-400'}`}>{unit.primary.birth_year}</span>
+                            </div>
+
+                            <div className={`flex items-center gap-3 p-3 ${unit.id === 'self' ? 'bg-white/5' : 'bg-neutral-50 dark:bg-black/20'} rounded`}>
+                              <div className="text-[8px] font-black uppercase tracking-super text-neutral-400">Companion</div>
+                              <div className="flex items-baseline gap-2">
+                                {isAdminMode ? (
+                                  <input 
+                                    value={unit.partner.name} 
+                                    onChange={(e) => {
+                                      const newLineage = [...content.family.lineage];
+                                      newLineage[gIdx].units[uIdx].partner.name = e.target.value;
+                                      updateContent('family.lineage', newLineage);
+                                    }}
+                                    className={`text-xs font-bold ${unit.id === 'self' ? 'text-white/80' : 'text-neutral-700 dark:text-white/60'} bg-orange-500/10`}
+                                  />
+                                ) : (
+                                  <span className={`text-xs font-bold ${unit.id === 'self' ? 'text-white/80' : 'text-neutral-700 dark:text-white/60'}`}>{unit.partner.name}</span>
+                                )}
+                                <span className="text-[9px] font-mono opacity-40">'{unit.partner.birth_year?.slice(-2)}</span>
+                              </div>
                             </div>
                           </div>
-                          
-                          <div className="p-3 bg-white dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded group/desc">
-                            <div className="flex justify-between items-center mb-1">
-                              <div className="text-[8px] font-black uppercase tracking-super text-neutral-400">Descendants</div>
-                              {isAdminMode && (
-                                <button 
-                                  onClick={() => {
-                                    const newSisters = [...(content.family?.sisters || [])];
-                                    if (!newSisters[idx].children) newSisters[idx].children = [];
-                                    newSisters[idx].children.push({ name: "New Child", birth_year: "20XX" });
-                                    updateContent('family.sisters', newSisters);
-                                  }}
-                                  className="p-1 bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-colors"
-                                  title="Add Child"
-                                >
-                                  <Plus size={8} />
-                                </button>
-                              )}
-                            </div>
-                            <div className="flex gap-1.5 flex-wrap">
-                              {sister.children?.length > 0 ? sister.children.map((child: any, cIdx: number) => (
-                                <div key={cIdx} className="flex flex-col relative group/child">
-                                  {isAdminMode ? (
-                                    <>
-                                      <input 
-                                        value={child.name} 
-                                        onChange={(e) => {
-                                          const newSisters = [...(content.family?.sisters || [])];
-                                          newSisters[idx].children[cIdx].name = e.target.value;
-                                          updateContent('family.sisters', newSisters);
-                                        }}
-                                        className="text-[10px] font-bold text-neutral-700 dark:text-white/70 italic bg-orange-500/5 w-16"
-                                      />
-                                      <input 
-                                        value={child.birth_year} 
-                                        onChange={(e) => {
-                                          const newSisters = [...(content.family?.sisters || [])];
-                                          newSisters[idx].children[cIdx].birth_year = e.target.value;
-                                          updateContent('family.sisters', newSisters);
-                                        }}
-                                        className="text-[8px] font-mono text-orange-500/60 bg-orange-500/5 w-12"
-                                      />
-                                      <button 
-                                        onClick={() => {
-                                          const newSisters = [...(content.family?.sisters || [])];
-                                          newSisters[idx].children.splice(cIdx, 1);
-                                          updateContent('family.sisters', newSisters);
-                                        }}
-                                        className="absolute -top-1 -right-1 text-[6px] text-red-500 opacity-0 group-hover/child:opacity-100"
-                                      >
-                                        ×
-                                      </button>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <span className="text-[10px] font-bold text-neutral-700 dark:text-white/70 italic">{child.name}</span>
-                                      <span className="text-[8px] font-mono text-orange-500/60">({child.birth_year})</span>
-                                    </>
-                                  )}
-                                </div>
-                              )) : <span className="text-[10px] italic text-neutral-400">None registered</span>}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </FadeIn>
-                ))}
-              </div>
-            </div>
 
-            {/* Core Unit Pillar */}
-            <div className="space-y-12">
-              <FadeIn>
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="p-2 bg-orange-500/10 rounded-full">
-                    <Heart className="text-orange-500" size={20} />
-                  </div>
-                  <h3 className="text-2xl font-black uppercase tracking-tighter">Inner Circle</h3>
-                </div>
-              </FadeIn>
-
-              {/* Wife Display */}
-              <FadeIn delay={0.2}>
-                <div className="group relative overflow-hidden bg-neutral-900 border-l-4 border-orange-500 p-8 shadow-2xl">
-                  <div className="absolute top-0 right-0 p-8 opacity-10">
-                    <Heart size={80} className="text-white" />
-                  </div>
-                  <div className="relative z-10">
-                    <span className="text-[9px] font-black uppercase tracking-[0.4em] text-orange-500 block mb-2">The Matriarch</span>
-                    <div className="flex items-baseline gap-4 mb-4">
-                      {isAdminMode ? (
-                        <input 
-                          value={content.family?.immediate?.wife?.name || ''} 
-                          onChange={(e) => updateContent('family.immediate.wife.name', e.target.value)}
-                          className="text-4xl font-black uppercase tracking-tighter text-white bg-white/10 w-full"
-                        />
-                      ) : (
-                        <h4 className="text-4xl font-black uppercase tracking-tighter text-white">{content.family?.immediate?.wife?.name}</h4>
-                      )}
-                      <span className="text-[10px] font-mono text-white/40">{content.family?.immediate?.wife?.birth_year}</span>
-                    </div>
-                    {isAdminMode ? (
-                      <textarea 
-                        value={content.family?.immediate?.wife?.bio || ''}
-                        onChange={(e) => updateContent('family.immediate.wife.bio', e.target.value)}
-                        className="text-sm font-sans text-white/60 bg-white/10 w-full italic"
-                        rows={3}
-                      />
-                    ) : (
-                      <p className="text-sm font-sans text-white/60 leading-relaxed italic border-l border-white/10 pl-6">{content.family?.immediate?.wife?.bio}</p>
-                    )}
-                  </div>
-                </div>
-              </FadeIn>
-
-              {/* Children Display */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <Baby className="text-neutral-400" size={16} />
-                  <span className="text-[10px] font-black uppercase tracking-super text-neutral-400">Next Generation</span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {content.family?.immediate?.children?.map((child: any, idx: number) => (
-                    <FadeIn key={idx} delay={0.3 + (idx * 0.1)}>
-                      <div className="p-5 border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/5 hover:border-orange-500 transition-colors">
-                        <div className="flex flex-col">
-                          {isAdminMode ? (
-                            <input 
-                              value={child.name} 
-                              onChange={(e) => {
-                                const newChildren = [...(content.family?.immediate?.children || [])];
-                                newChildren[idx].name = e.target.value;
-                                updateContent('family.immediate.children', newChildren);
-                              }}
-                              className="text-sm font-black uppercase tracking-widest text-neutral-900 dark:text-white bg-orange-500/10 w-full"
-                            />
-                          ) : (
-                            <span className="text-sm font-black uppercase tracking-widest text-neutral-900 dark:text-white">{child.name}</span>
+                          {unit.descendants && (
+                             <div className="space-y-4">
+                               <div className="flex items-center justify-between">
+                                 <div className="flex items-center gap-2">
+                                   <Baby size={12} className={unit.id === 'self' ? 'text-orange-500' : 'text-neutral-400'} />
+                                   <span className={`text-[9px] font-black uppercase tracking-super ${unit.id === 'self' ? 'text-white/60' : 'text-neutral-400'}`}>Descendants</span>
+                                 </div>
+                                 {isAdminMode && (
+                                   <button 
+                                     onClick={() => {
+                                       const newLineage = [...content.family.lineage];
+                                       if (!newLineage[gIdx].units[uIdx].descendants) newLineage[gIdx].units[uIdx].descendants = [];
+                                       newLineage[gIdx].units[uIdx].descendants.push({ name: "New Member", birth_year: "20XX" });
+                                       updateContent('family.lineage', newLineage);
+                                     }}
+                                     className="p-1 bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-colors"
+                                   >
+                                     <Plus size={8} />
+                                   </button>
+                                 )}
+                               </div>
+                               <div className="grid grid-cols-2 gap-3">
+                                 {unit.descendants.map((child: any, cIdx: number) => (
+                                   <div key={cIdx} className={`p-3 border ${unit.id === 'self' ? 'bg-white/5 border-white/10' : 'bg-white dark:bg-black/40 border-neutral-100 dark:border-white/5'} rounded relative group/child`}>
+                                     {isAdminMode ? (
+                                       <div className="flex flex-col gap-1">
+                                          <input 
+                                            value={child.name} 
+                                            onChange={(e) => {
+                                              const newLineage = [...content.family.lineage];
+                                              newLineage[gIdx].units[uIdx].descendants[cIdx].name = e.target.value;
+                                              updateContent('family.lineage', newLineage);
+                                            }}
+                                            className="text-[10px] font-bold text-neutral-900 dark:text-white bg-orange-500/10 w-full"
+                                          />
+                                          <input 
+                                            value={child.birth_year} 
+                                            onChange={(e) => {
+                                              const newLineage = [...content.family.lineage];
+                                              newLineage[gIdx].units[uIdx].descendants[cIdx].birth_year = e.target.value;
+                                              updateContent('family.lineage', newLineage);
+                                            }}
+                                            className="text-[8px] font-mono text-orange-500 bg-orange-500/10 w-full"
+                                          />
+                                          <button 
+                                            onClick={() => {
+                                              const newLineage = [...content.family.lineage];
+                                              newLineage[gIdx].units[uIdx].descendants.splice(cIdx, 1);
+                                              updateContent('family.lineage', newLineage);
+                                            }}
+                                            className="absolute -top-1 -right-1 text-[8px] text-red-500"
+                                          >
+                                            ×
+                                          </button>
+                                       </div>
+                                     ) : (
+                                       <>
+                                         <span className={`text-[10px] font-bold ${unit.id === 'self' ? 'text-white/90' : 'text-neutral-800 dark:text-white/70'}`}>{child.name}</span>
+                                         <span className="text-[8px] font-mono text-orange-500 block">'{child.birth_year?.slice(-2)}</span>
+                                       </>
+                                     )}
+                                   </div>
+                                 ))}
+                               </div>
+                             </div>
                           )}
-                          <div className="flex items-center gap-2 mt-1 mb-3">
-                            <span className="text-[9px] font-bold text-orange-500 uppercase tracking-widest">Born:</span>
-                            {isAdminMode ? (
-                                <input 
-                                  value={child.birth_year} 
-                                  onChange={(e) => {
-                                    const newChildren = [...(content.family?.immediate?.children || [])];
-                                    newChildren[idx].birth_year = e.target.value;
-                                    updateContent('family.immediate.children', newChildren);
-                                  }}
-                                  className="text-[10px] font-mono text-neutral-400 bg-orange-500/10 w-12"
-                                />
-                              ) : (
-                                <span className="text-[10px] font-mono text-neutral-400">{child.birth_year}</span>
-                              )}
-                          </div>
-                          {isAdminMode ? (
-                            <textarea 
-                              value={child.bio}
-                              onChange={(e) => {
-                                const newChildren = [...(content.family?.immediate?.children || [])];
-                                newChildren[idx].bio = e.target.value;
-                                updateContent('family.immediate.children', newChildren);
-                              }}
-                              className="text-[10px] text-neutral-500 dark:text-white/40 font-sans leading-relaxed bg-orange-500/10 w-full"
-                              rows={2}
-                            />
-                          ) : (
-                            <p className="text-[10px] text-neutral-500 dark:text-white/40 font-sans leading-relaxed italic">{child.bio}</p>
+
+                          {isAdminMode && (
+                            <div className="mt-6 pt-6 border-t border-white/10">
+                               <span className="text-[8px] font-black uppercase tracking-super text-neutral-400 block mb-2">Biography</span>
+                               <textarea 
+                                 value={unit.primary.bio || ''}
+                                 onChange={(e) => {
+                                   const newLineage = [...content.family.lineage];
+                                   newLineage[gIdx].units[uIdx].primary.bio = e.target.value;
+                                   updateContent('family.lineage', newLineage);
+                                 }}
+                                 className="w-full bg-orange-500/10 text-[10px] text-white/60 font-sans p-2"
+                                 rows={2}
+                               />
+                            </div>
                           )}
                         </div>
                       </div>
@@ -1200,7 +1095,7 @@ export default function App() {
                   ))}
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
