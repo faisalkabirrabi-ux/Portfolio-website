@@ -1,0 +1,109 @@
+{
+  "about": {
+    "tagline": "I’m Faisal Kabir Rabi, a motivated individual focused on growth, learning, and building a better future. I’m passionate about technology, self-development, and turning ideas into real work.",
+    "text": "Based in Bangladesh, I am navigating the intersections of tradition and modernity. This archive serves as a digital vessel for my thoughts, visual explorations, and familial history. A lifelong student of architecture and human behavior.",
+    "stats": [
+      {
+        "label": "Archived Records",
+        "value": "1.2k+"
+      },
+      {
+        "label": "Visual Entries",
+        "value": "850"
+      },
+      {
+        "label": "Years Active",
+        "value": "08"
+      }
+    ]
+  },
+  "gallery": [
+    {
+      "id": 1,
+      "url": "https://drive.google.com/file/d/18Dl_NyUvWmvA-iS3ot2nl5HIO3wgIttK/view?usp=drivesdk",
+      "title": "Momentum",
+      "category": "Street",
+      "alt": "A black and white street photography shot capturing motion and urban rhythm"
+    },
+    {
+      "id": 2,
+      "url": "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop",
+      "title": "Stillness",
+      "category": "Portrait",
+      "alt": "A minimalist portrait emphasizing quiet emotion and soft lighting"
+    },
+    {
+      "id": 3,
+      "url": "https://images.unsplash.com/photo-1493246507139-91e8bef99c02?q=80&w=800&auto=format&fit=crop",
+      "title": "Infinite",
+      "category": "Landscape",
+      "alt": "Wide angle landscape shot showing a vast, open natural horizon"
+    }
+  ],
+  "family": {
+    "sisters": [
+      {
+        "name": "Sister Name 1",
+        "birth_year": "199X",
+        "bio": "Introduction about first sister...",
+        "husband": { "name": "Husband Name", "birth_year": "199X" },
+        "children": [
+          { "name": "Child 1", "birth_year": "201X" }
+        ]
+      },
+      {
+        "name": "Sister Name 2",
+        "birth_year": "199X",
+        "bio": "Introduction about second sister...",
+        "husband": { "name": "Husband Name", "birth_year": "199X" },
+        "children": []
+      },
+      {
+        "name": "Sister Name 3",
+        "birth_year": "199X",
+        "bio": "Introduction about third sister...",
+        "husband": { "name": "Husband Name", "birth_year": "199X" },
+        "children": []
+      }
+    ],
+    "immediate": {
+      "wife": { "name": "Wife Name", "birth_year": "199X", "bio": "Introduction about wife..." },
+      "children": [
+        { "name": "Child 1", "birth_year": "20XX", "bio": "Bio..." },
+        { "name": "Child 2", "birth_year": "20XX", "bio": "Bio..." },
+        { "name": "Child 3", "birth_year": "20XX", "bio": "Bio..." }
+      ]
+    }
+  },
+  "updates": [
+    {
+      "id": 1,
+      "date": "May 02, 2026",
+      "title": "Portfolio Launch",
+      "desc": "Hi, I’m Faisal Kabir Rabi.\nI’m passionate about learning, building, and improving every day.\nI enjoy working with technology, exploring new ideas, and creating things that reflect who I am. My journey is all about growth, consistency, and becoming better than I was yesterday."
+    },
+    {
+      "id": 2,
+      "date": "April 15, 2026",
+      "title": "Mountain Trip",
+      "desc": "Returned from an amazing trip to the mountains. Check out the Gallery for new photos!"
+    }
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "position": "Assistance Pump Operator",
+      "company": "Chittagong Water Supply & Sewerage Authorities",
+      "duration": "Present",
+      "location": "Chittagong, Bangladesh"
+    }
+  ],
+  "contact": {
+    "hometown": "Noakhali, Bangladesh",
+    "present_address": "Chittagong, Bangladesh",
+    "email": "faisalkabirrabi@gmail.com",
+    "instagram": "https://www.instagram.com/faisalkabirrobi?igsh=NjV0Z244b2UzeGpx",
+    "phone": "01605956572",
+    "free_fire_uid": "7031175099"
+  }
+}
